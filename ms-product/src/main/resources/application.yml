@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/product_db
+    username: root
+    password: 23666
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+server:
+  port: 9999
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
