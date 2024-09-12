@@ -1,7 +1,6 @@
-package az.ramazan.products.exception;
+package az.ramazan.ms_order.exception;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,13 +44,5 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 //                .build();
 //
 //    }
-
-    @ExceptionHandler(InsufficientQuantityException.class)
-    @ResponseStatus(BAD_REQUEST)
-    public ErrorResponse handle(InsufficientQuantityException exception) {
-        return ErrorResponse.builder()
-                .message(exception.getMessage())
-                .build();
-    }
 
 }
