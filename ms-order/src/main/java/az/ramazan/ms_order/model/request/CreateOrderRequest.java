@@ -22,7 +22,6 @@ public class CreateOrderRequest {
     @NotNull(message = QUANTITY_IS_REQUIRED)
     private Integer quantity;
 
-    @NotNull(message = AMOUNT_IS_REQUIRED)
-    private BigDecimal amount;
+
     private PaymentType paymentType;
 }

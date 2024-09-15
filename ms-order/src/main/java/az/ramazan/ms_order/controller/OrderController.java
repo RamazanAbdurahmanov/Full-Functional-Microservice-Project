@@ -4,7 +4,6 @@ import az.ramazan.ms_order.model.request.CreateOrderRequest;
 import az.ramazan.ms_order.model.response.OrderResponse;
 import az.ramazan.ms_order.service.abstraction.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
