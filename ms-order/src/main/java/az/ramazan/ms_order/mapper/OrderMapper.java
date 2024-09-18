@@ -1,6 +1,7 @@
 package az.ramazan.ms_order.mapper;
 
 import az.ramazan.ms_order.dao.entity.OrderEntity;
+import az.ramazan.ms_order.model.client.response.ProductResponse;
 import az.ramazan.ms_order.model.request.CreateOrderRequest;
 import az.ramazan.ms_order.model.response.OrderResponse;
 
@@ -20,7 +21,8 @@ public enum OrderMapper {
                 .build();
     }
 
-    public OrderResponse buildOrderResponse(OrderEntity orderEntity) {
+    public OrderResponse buildOrderResponse(OrderEntity orderEntity,
+                                            ProductResponse productResponse) {
         return OrderResponse.builder()
                 .id(orderEntity.getId())
                 .productId(orderEntity.getProductId())
@@ -28,6 +30,7 @@ public enum OrderMapper {
                 .amount(orderEntity.getAmount())
                 .status(orderEntity.getStatus())
                 .createdAt(orderEntity.getCreatedAt())
+                .product(productResponse)
                 .build();
     }
 

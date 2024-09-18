@@ -1,5 +1,6 @@
 package az.ramazan.ms_order.model.response;
 
+import az.ramazan.ms_order.model.client.response.ProductResponse;
 import az.ramazan.ms_order.model.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,4 +20,5 @@ public class OrderResponse {
     private OrderStatus status;
     private BigDecimal amount;
     private LocalDateTime createdAt;
+    private ProductResponse product;
 }

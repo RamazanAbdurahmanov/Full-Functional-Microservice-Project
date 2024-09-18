@@ -37,7 +37,7 @@ public class OrderServiceHandler implements OrderService {
     public void createOrder(CreateOrderRequest createOrderRequest) {
         var orderEntity = ORDER_MAPPER.buildOrderEntity(createOrderRequest);
         var productResponse = productClient.getProductById(createOrderRequest.getProductId());
-        var totalAmount=productResponse.getPrice().multiply(valueOf(createOrderRequest.getQuantity()));
+        var totalAmount = productResponse.getPrice().multiply(valueOf(createOrderRequest.getQuantity()));
 
         orderEntity.setAmount(totalAmount);
         var reduceQuantityRequest = new ReduceQuantityRequest(
@@ -49,27 +49,28 @@ public class OrderServiceHandler implements OrderService {
 
         try {
             paymentClient.pay(
-                PAYMENT_MAPPER.buildCreatePaymentRequest(
-                        createOrderRequest,
-                        orderEntity,
-                        totalAmount
-                ));
+                    PAYMENT_MAPPER.buildCreatePaymentRequest(
+                            createOrderRequest,
+                            orderEntity,
+                            totalAmount
+                    ));
             orderEntity.setStatus(APPROVED);
         } catch (Exception e) {
             orderEntity.setStatus(REJECTED);
         }
 
 
-
-
     }
 
     @Override
     public OrderResponse getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .map(ORDER_MAPPER::buildOrderResponse)
-                .orElseThrow(() -> new NotFoundException(format(ORDER_NOT_FOUND.getMessage(),
-                        id
-                )));
+        var orderEntity = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        format(ORDER_NOT_FOUND.getMessage(),
+                                id
+                        )));
+        var productResponse = productClient.getProductById(orderEntity.getProductId());
+        return ORDER_MAPPER.buildOrderResponse(orderEntity, productResponse);
+
     }
 }
