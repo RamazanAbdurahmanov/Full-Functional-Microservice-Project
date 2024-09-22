@@ -2,6 +2,7 @@ package az.ramazan.ms_payment.service.concrete;
 
 import az.ramazan.ms_payment.exception.NotFoundException;
 import az.ramazan.ms_payment.mapper.PaymentMapper;
+import az.ramazan.ms_payment.model.enums.ErrorMessage;
 import az.ramazan.ms_payment.model.request.CreatePaymentRequest;
 import az.ramazan.ms_payment.model.response.PaymentResponse;
 import az.ramazan.ms_payment.repository.PaymentRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static az.ramazan.ms_payment.mapper.PaymentMapper.*;
+import static az.ramazan.ms_payment.model.enums.ErrorMessage.*;
+import static java.lang.String.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class PaymentServiceHandler implements PaymentService {
         return paymentRepository.findByOrderId(orderId)
                 .map(PAYMENT_MAPPER::buildPaymentResponse)
                 .orElseThrow(()->new NotFoundException(
-                        "Payment not found with order id :"+orderId));
+                        format(PAYMENT_NOT_FOUND.getMessage(),orderId)
+                ));
     }
 }
