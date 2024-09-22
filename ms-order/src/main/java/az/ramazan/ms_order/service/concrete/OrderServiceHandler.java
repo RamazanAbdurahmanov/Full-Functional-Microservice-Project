@@ -7,6 +7,7 @@ import az.ramazan.ms_order.exception.NotFoundException;
 import az.ramazan.ms_order.mapper.PaymentMapper;
 import az.ramazan.ms_order.model.client.request.CreatePaymentRequest;
 import az.ramazan.ms_order.model.client.request.ReduceQuantityRequest;
+import az.ramazan.ms_order.model.client.response.PaymentResponse;
 import az.ramazan.ms_order.model.request.CreateOrderRequest;
 import az.ramazan.ms_order.model.response.OrderResponse;
 import az.ramazan.ms_order.service.abstraction.OrderService;
@@ -70,7 +71,8 @@ public class OrderServiceHandler implements OrderService {
                                 id
                         )));
         var productResponse = productClient.getProductById(orderEntity.getProductId());
-        return ORDER_MAPPER.buildOrderResponse(orderEntity, productResponse);
+        var paymentResponse = paymentClient.getPaymentByOrderId(orderEntity.getId());
+        return ORDER_MAPPER.buildOrderResponse(orderEntity, productResponse,paymentResponse);
 
     }
 }

@@ -20,5 +20,9 @@ public class PaymentController {
     public PaymentResponse pay(@RequestBody CreatePaymentRequest createPaymentRequest) {
        return paymentService.pay(createPaymentRequest);
     }
+    @GetMapping("/order/{orderId}")
+    public PaymentResponse getPaymentByOrderId(@PathVariable Long orderId){
+        return paymentService.getPaymentByOrderId(orderId);
+    }
 
 }

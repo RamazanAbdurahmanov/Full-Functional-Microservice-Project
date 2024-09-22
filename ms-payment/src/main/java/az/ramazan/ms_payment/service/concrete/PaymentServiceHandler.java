@@ -1,5 +1,6 @@
 package az.ramazan.ms_payment.service.concrete;
 
+import az.ramazan.ms_payment.exception.NotFoundException;
 import az.ramazan.ms_payment.mapper.PaymentMapper;
 import az.ramazan.ms_payment.model.request.CreatePaymentRequest;
 import az.ramazan.ms_payment.model.response.PaymentResponse;
@@ -18,9 +19,17 @@ public class PaymentServiceHandler implements PaymentService {
     public PaymentResponse pay(CreatePaymentRequest createPaymentRequest) {
         var paymentEntity= PAYMENT_MAPPER.buildPaymentEntity(createPaymentRequest);
         paymentRepository.save(paymentEntity);
-        return new PaymentResponse(paymentEntity.getId());
+        return PAYMENT_MAPPER.buildPaymentResponse(paymentEntity);
 
 
 
+    }
+
+    @Override
+    public PaymentResponse getPaymentByOrderId(Long orderId) {
+        return paymentRepository.findByOrderId(orderId)
+                .map(PAYMENT_MAPPER::buildPaymentResponse)
+                .orElseThrow(()->new NotFoundException(
+                        "Payment not found with order id :"+orderId));
     }
 }

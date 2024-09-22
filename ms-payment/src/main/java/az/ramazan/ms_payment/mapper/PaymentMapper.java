@@ -1,10 +1,9 @@
 package az.ramazan.ms_payment.mapper;
 
 import az.ramazan.ms_payment.dao.entity.PaymentEntity;
-import az.ramazan.ms_payment.model.enums.PaymentStatus;
 import az.ramazan.ms_payment.model.request.CreatePaymentRequest;
+import az.ramazan.ms_payment.model.response.PaymentResponse;
 
-import java.time.LocalDateTime;
 
 import static az.ramazan.ms_payment.model.enums.PaymentStatus.*;
 import static java.time.LocalDateTime.*;
@@ -20,5 +19,14 @@ public enum PaymentMapper {
                 .amount(createPaymentRequest.getAmount())
                 .createdAt(now())
                 .build();
+    }
+    public PaymentResponse buildPaymentResponse(PaymentEntity paymentEntity){
+        return PaymentResponse.builder()
+                .id(paymentEntity.getId())
+                .status(paymentEntity.getStatus())
+                .createdAt(paymentEntity.getCreatedAt())
+                .paymentType(paymentEntity.getPaymentType())
+                .build();
+
     }
 }
