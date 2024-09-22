@@ -1,5 +1,6 @@
 package az.ramazan.products.exception;
 
+import az.ramazan.products.model.enums.ErrorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import static az.ramazan.products.model.enums.ErrorMessage.SERVER_ERROR;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
@@ -27,7 +29,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handle(Exception exception) {
         return ErrorResponse.builder()
-                .message("Unexpected error occurred.Please try again later.")
+                .message(SERVER_ERROR.getMessage())
                 .build();
     }
 
