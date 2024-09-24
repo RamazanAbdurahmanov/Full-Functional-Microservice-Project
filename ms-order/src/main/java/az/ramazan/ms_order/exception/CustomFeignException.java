@@ -1,7 +1,12 @@
 package az.ramazan.ms_order.exception;
 
+import lombok.Getter;
+
+@Getter
 public class CustomFeignException extends RuntimeException{
-    public CustomFeignException(String message) {
+    private final Integer statusCode;
+    public CustomFeignException(Integer statusCode,String message) {
         super(message);
+        this.statusCode=statusCode;
     }
 }

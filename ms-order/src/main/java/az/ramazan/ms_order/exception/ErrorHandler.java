@@ -1,5 +1,6 @@
 package az.ramazan.ms_order.exception;
 
+import az.ramazan.ms_order.model.enums.ErrorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import static az.ramazan.ms_order.model.enums.ErrorMessage.*;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
@@ -26,7 +28,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handle(Exception exception) {
         return ErrorResponse.builder()
-                .message("Unexpected error occurred.Please try again later.")
+                .message(SERVER_ERROR.getMessage())
                 .build();
     }
 
@@ -36,13 +38,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, BAD_REQUEST);
     }
 
-//    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(BAD_REQUEST)
-//    public ErrorResponse handle(MethodArgumentNotValidException exception) {
-//        return ErrorResponse.builder()
-//                .message(exception.getBindingResult().getFieldError().getDefaultMessage())
-//                .build();
-//
-//    }
+    @ExceptionHandler(CustomFeignException.class)
+    public ResponseEntity<ErrorResponse> handle(CustomFeignException exception) {
+        return ResponseEntity
+                .status(exception.getStatusCode())
+                .body(ErrorResponse.builder()
+                        .message(exception.getMessage())
+                        .build());
+
+    }
 
 }
