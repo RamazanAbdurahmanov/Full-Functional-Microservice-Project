@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Full-Functional-Microservice-Project.iml" filepath="$PROJECT_DIR$/.idea/Full-Functional-Microservice-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-order.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-order.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-payment.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-payment.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-product.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-product.main.iml" />
     </modules>
   </component>

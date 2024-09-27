@@ -8,40 +8,40 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: product_id
-                  type: bigint
+                  type: BIGINT
                   constraints:
                     nullable: false
               - column:
                   name: quantity
-                  type: int
+                  type: INT
                   constraints:
                     nullable: false
               - column:
                   name: status
-                  type: VARCHAR(16)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: amount
-                  type: decimal(16, 2)
+                  type: DECIMAL(19,2)
                   constraints:
                     nullable: false
               - column:
                   name: created_at
-                  type: timestamp
+                  type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
               - column:
                   name: updated_at
-                  type: timestamp
+                  type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
