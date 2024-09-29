@@ -21,3 +21,9 @@ server:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
