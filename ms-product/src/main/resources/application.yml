@@ -1,3 +1,6 @@
+server:
+  port: 9999
+
 spring:
   application:
     name: ms-product
@@ -14,16 +17,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
+  config:
+    import:
+      optional: configserver:http://localhost:8888
 
-server:
-  port: 9999
-
-  liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+management:
+  tracing:
+    sampling:
+      probability: 1.0
