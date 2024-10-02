@@ -1,15 +1,15 @@
 server:
   port: 9999
-
 spring:
   application:
     name: ms-product
+  config:
+    import: configserver:http://localhost:8888
   datasource:
     url: jdbc:mysql://localhost:3306/product_db
     username: root
     password: 23666
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,10 +17,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
-  config:
-    import:
-      optional: configserver:http://localhost:8888
-
 management:
   tracing:
     sampling:
