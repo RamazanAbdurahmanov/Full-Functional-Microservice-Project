@@ -1,6 +1,4 @@
 spring:
-  main:
-    web-application-type: reactive
   application:
     name: api-gateway
   config:
@@ -31,6 +29,14 @@ spring:
             - Path=/payments/**
           filters:
             - RewritePath=/payments/(?<segment>.*), /${segment}
-
+springDoc:
+  swagger-ui:
+    urls:
+      - name: ms-product
+        url: http://localhost:9999/v3/api-docs
+      - name: ms-order
+        url: http://localhost:8081/v3/api-docs
+      - name: ms-payment
+        url: http://localhost:8082/v3/api-docs
 server:
   port: 9090
