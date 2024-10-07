@@ -8,26 +8,39 @@ spring:
       discovery:
         locator:
           enabled: true
-      mvc:
-        routes:
-          - id: ms-product
-            uri: http://localhost:9999
-            predicates:
-              - Path=/products/**
-            filters:
-              - RewritePath=/products/(?<segment>.*), /${segment}
-          - id: ms-order
-            uri: http://localhost:8081
-            predicates:
-              - Path=/orders/**
-            filters:
-              - RewritePath=/orders/(?<segment>.*), /${segment}
-          - id: ms-payment
-            uri: http://localhost:8082
-            predicates:
-              - Path=/payments/**
-            filters:
-              - RewritePath=/payments/(?<segment>.*), /${segment}
+      routes:
+        - id: ms-product
+          uri: http://localhost:9999
+          predicates:
+            - Path=/products/**
+          filters:
+            - RewritePath=/products/(?<segment>.*), /${segment}
+            - name: CircuitBreaker
+              args:
+                name: productServiceCircuitBreaker
+                fallbackUri: forward:/fallback/productServiceFallBack
+
+        - id: ms-order
+          uri: http://localhost:8081
+          predicates:
+            - Path=/orders/**
+          filters:
+            - RewritePath=/orders/(?<segment>.*), /${segment}
+            - name: CircuitBreaker
+              args:
+                name: orderServiceCircuitBreaker
+                fallbackUri: forward:/fallback/orderServiceFallBack
+
+        - id: ms-payment
+          uri: http://localhost:8082
+          predicates:
+            - Path=/payments/**
+          filters:
+            - RewritePath=/payments/(?<segment>.*), /${segment}
+            - name: CircuitBreaker
+              args:
+                name: paymentServiceCircuitBreaker
+                fallbackUri: forward:/fallback/paymentServiceFallBack
 
 springDoc:
   swagger-ui:
@@ -40,6 +53,10 @@ springDoc:
         url: http://localhost:8082/v3/api-docs
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
   tracing:
     sampling:
       probability: 1.0
