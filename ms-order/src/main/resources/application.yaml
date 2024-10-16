@@ -12,9 +12,27 @@ spring:
     hibernate:
       ddl-auto: validate
       open-in-view: false
+
 server:
   port: 8081
+
 management:
   tracing:
     sampling:
       probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      getOrderById:
+        sliding-window-type: count_based
+        failure-rate-threshold: 50.0
+        sliding-window-size: 10
+        wait-duration-in-open-state: 10s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 2
+        max-wait-duration-in-half-open-state: 15000
