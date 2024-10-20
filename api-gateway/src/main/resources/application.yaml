@@ -75,3 +75,11 @@ management:
 
 server:
   port: 9090
+
+okta:
+  oauth2:
+    issuer: https://trial-1561442.okta.com/oauth2/default
+    client-id: 0oak88gzqdZ9b19TL697
+    client-secret: CAoJYsgMEbYBVYb_D8DcIeH3wRM5m79EXfE4XVpx79sVaGnTJ-PPSRRAjahdknRB
+    scopes: openid, profile, email, offline_access
+
